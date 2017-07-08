@@ -43,11 +43,13 @@ void CefSubsystem::tick() {
 
 void CefSubsystem::initialize(int argc, char **argv)
 {
-    if(argc < 2) return;
-    std::string port = argv[1];
+    if (argc < 2) return;
+    std::string instance_id = argv[1];
+    std::string host = (argc > 2) ? argv[2] : "localhost";
+    std::string port = (argc > 3) ? argv[3] : "31416";
 
-    spdlog::get("global")->info("CefSubsystem::initialize() --> CefInitialize({0}, {1}, {2})", port, scr_w, scr_h);
-    cef_app = new InexorCefApp(port, scr_w, scr_h);
+    spdlog::get("global")->info("CefSubsystem::initialize() --> CefInitialize({0}, {1}, {2}, {3}, {4})", instance_id, host, port, scr_w, scr_h);
+    cef_app = new InexorCefApp(instance_id, host, port, scr_w, scr_h);
 
 
 #ifdef WIN32
